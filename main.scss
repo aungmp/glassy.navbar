@@ -1,0 +1,445 @@
+$mainLogocolor: #012752;
+$textColor: #070707;
+$textHoverColor: #91affc;
+$linearBackground: linear-gradient(90deg, #a8c0ff, #668cff);
+$borderColor: rgba(255, 255, 255, 0.18);
+
+@mixin forBoxshadow{
+     box-shadow: inset 0 0 60px 10px rgba(255,255,255,0.05) ,0 8px 32px 0 rgba(31,38,135,0.3);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+}
+
+ 
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    .menu-icon {
+        img {
+            width: 50px;
+        }
+    }
+
+}
+
+body {
+
+    height: 100vh;
+    background: linear-gradient(rgba(236, 236, 242, 0.167), rgba(32, 32, 32, 0.25)), url('./images/bg-truck.jpg') no-repeat center center/cover;
+    font-family: "Savate", sans-serif;
+    overflow: hidden;/* Consider if you want this for mobile too */
+
+    nav{
+        position: fixed;
+        top:0;
+        left:0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding:0.5rem 2rem;
+        background: rgba(10,10,10,0.14);
+        //let make it for universal useful
+       @include forBoxshadow();
+        border-radius: 0 0 20px 20px;
+        border: 1px solid $borderColor;
+        z-index: 100;
+
+
+       .logo{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap:1rem;
+        cursor: pointer;
+
+        img{
+            width: 50px;
+            transition: 0.3s ease-in-out;
+
+            &:hover{
+                transform: scale(1.3);
+            }
+        }
+        span{
+            color: $mainLogocolor;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255,255,255,0.7);
+            transition: padding 0.3s ease;
+
+            &:hover{
+                padding: 0.5rem 1rem;
+                border:1px solid $linearBackground;
+                border-radius: 0 20px 20px 0;
+                //to add the boxshadow 
+                @include forBoxshadow();
+            }
+        }
+       }
+
+       .nav-links{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        gap:2.5rem;
+
+        li{
+
+
+            a{
+
+                font-family: 'Montserrat',sans-serif;
+                text-decoration: none;
+                font-size: 1rem;
+                font-weight: 600;
+                color:$textColor;
+                padding: 5px 0;
+                position: relative;
+                transition: color 0.3s ease;
+
+                &::after{
+                    content:"";
+                    position: absolute;
+                    left:0;
+                    bottom: -3px;
+                    width:0; // to leave for hover;
+                    height: 2px;
+                    background: $linearBackground;
+                    transition: width 0.3s ease;
+
+                }
+                &:hover{
+                    color: $textHoverColor;
+
+                    &::after{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        .dropdown{
+            cursor: pointer;
+            position: relative;
+
+            a{
+                i{
+                    font-size: 0.8rem;
+                }
+            }
+
+            .dropdown-content{
+                position: absolute;
+                top:130%;
+                left: 0;
+                background:rgba(255,255,255,0.12);
+                backdrop-filter:blur(18px);
+                border-radius: 14px;
+                border: 1px solid $borderColor;
+                min-width: 190px;
+               opacity: 0; //leave for the hover//
+                pointer-events: none;//leave for the hover//;
+                transform: translateY(-15px);
+                transition: opacity 0.3s linear;
+
+                a{
+                    display: block;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 10px;
+
+                    &:hover{
+                        color:$textHoverColor;
+                        background: rgba(168,192,255,0.25);
+                        cursor: pointer;
+                    }
+
+                }
+            }
+
+            &:hover{
+
+                .dropdown-content{
+                    opacity: 1;
+                    pointer-events: auto;
+                    transform: translateY(0);
+                }
+            }
+        }
+
+    
+       
+       }
+       
+       .search-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        input[type="text"]{
+            width: 220px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid $borderColor;
+            border-radius: 20px;
+            padding: 6px 35px 6px 12px;
+            font-size: 1rem;
+            color: $textColor;
+            outline: none;
+            transition: width 0.3s ease;
+
+            &::placeholder{
+                color:#414141;
+            }
+
+            &:focus{
+                background: rgba(255,255,255,0.3);
+                width: 240px;
+            }
+
+
+        }
+
+        .fa{
+            position: absolute;
+            right: 12px;
+            font-size: 1.1rem;
+            color: $textColor;
+            pointer-events: none;
+        }
+       }
+
+       .menu-icon{
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 50;
+        transition: 0.3s ease;
+        cursor: pointer;
+
+        &:active{
+            transform: scale(1.2);
+        }
+
+        img{
+            width: 30px;
+        }
+       }
+      
+
+
+    }
+
+
+@media (max-width:997px){
+
+    nav{
+  
+
+        .logo{
+            gap: 0.8rem;
+
+            span{
+                font-size: 1rem;
+            }
+        }
+
+        .nav-links{
+            gap: 1rem;
+
+            li{
+                a{
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
+
+}
+
+ @media (max-width:786px){
+
+    nav{
+      
+        .logo{
+            gap: 0.5rem;
+
+           
+        }
+
+
+        .nav-links{
+            flex-direction: column;
+            position: fixed;
+            top:90px;
+            left: -100%;
+            width: 250px;
+            gap: 2rem;
+            padding: 2rem 0;
+            background: rgba(150,133,133,0.7);
+            box-shadow: 8px 0 30px rgba(0,0,0,0.13);
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            transition: left 0.3s ease;
+
+            &.open{
+                left: 0;
+            }
+
+            li{
+                position: relative;
+                text-align: center;
+
+                a{
+                    font-size: 0.9rem;
+                }
+            }
+            .dropdown{
+                position: relative;
+                width: fit-content ip !important;
+
+                a{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    i{
+                        transition: transform 0.3s ease;
+                        margin-left:5px;
+                    }
+                }
+
+                &.open{
+                    a{
+                        i{
+                            transform: rotate(180deg);
+                        }
+                    }
+
+                    .dropdown-content{
+                        max-height: 500px;
+                        padding-left: 10px;
+                        border: 1px solid #333;
+                    }
+                }
+
+                .dropdown-content{
+                    position: relative;
+                    top: 0;
+                    left: auto;
+                    background: linear-gradient(rgba(132,132,132,0.36),rgba(31,30,30,0.274));
+                    backdrop-filter: none;
+                    box-shadow: none;
+                    border: none;
+                    border-radius: 14px;
+                    min-width: 190px;
+                    opacity: 1 !important;
+                    pointer-events: auto !important;
+                    transform: none !important;
+                    margin-top: 5px;
+                    overflow: hidden;
+                    min-width: unset;
+                    padding: 0;
+                    max-height: 0;
+                    transition: max-height 0.3s ease ,padding 0.3s ease;
+
+                    li{
+                        margin-left: 20px;
+
+                        a{
+                            display: block;
+                            padding: 0.8rem 1rem;
+                            font-size: 0.9rem;
+                            font-weight: 500;
+                            transition: background 0.3s ease,color 0.3s ease;
+                            text-align: start;
+
+                            &:hover{
+                                color: $textHoverColor;
+                                background: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .search-container{
+
+            input[type="text"]{
+                width: 300px;
+
+                &:focus{
+                    width: 320px;
+                }
+            }
+        }
+        .menu-icon{
+            display: flex;
+
+            &.close{
+                display: none;
+            }
+        }
+    }
+ }
+
+ @media (max-width:586px){
+
+    nav{ 
+
+        .logo{
+            span{
+                display: none;
+            }
+        }
+        .nav-links{
+            width: 180px;
+
+            .dropdown{
+                
+                .dropdown-content{
+
+                    li{
+
+                        a{
+                            padding: 0.8rem 0.5rem;
+                        }
+                    }
+                }
+
+                &.open{
+
+                    .dropdown-content{
+                        padding-left: 5px;
+                    }
+                }
+            }
+        }
+        .search-container{
+
+            input[type="text"]{
+                width: 200px;
+
+                &:focus{
+                    width: 240px;
+                }
+            }
+        }
+    }
+
+ }
+
+
+
+}
